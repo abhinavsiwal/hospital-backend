@@ -10,9 +10,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // Import all the Routes
 const authRoute = require("./routes/authRoute");
+const appointmentRoute = require("./routes/appointmentRoute");
 
 // Use Routes
 app.use("/api/auth", authRoute);
+app.use("/api/appointment", appointmentRoute);
 
 app.use("*", (req, res, next) => {
   const error = {
