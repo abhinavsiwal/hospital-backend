@@ -65,7 +65,8 @@ exports.signup = [
   body("password")
     .isLength({ min: 6 })
     .withMessage("Password must be at least 6 characters long."),
-
+  body("role").notEmpty().withMessage("Please enter a valid role."),
+  body("name").notEmpty().withMessage("Please enter a valid name."),
   async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -75,7 +76,7 @@ exports.signup = [
       return next(error);
     }
 
-    const { email, password, role } = req.body;
+    const { email, password, role, name } = req.body;
     try {
       let existingUser = await User.findOne({ email });
       if (existingUser) {
@@ -90,6 +91,7 @@ exports.signup = [
         email,
         password: hash,
         role,
+        name,
       });
       await newUser.save();
       res.status(201).json({
