@@ -94,9 +94,18 @@ exports.signup = [
         name,
       });
       await newUser.save();
+
+      let token;
+      try {
+        token = createJwtToken({ userId: newUser._id });
+      } catch (error) {
+        return next(error);
+      }
+
       res.status(201).json({
-        message: "Signup success.",
+        message: "Signup successfully.",
         user: newUser,
+        token,
       });
     } catch (err) {
       console.log(err);
