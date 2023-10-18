@@ -37,7 +37,7 @@ exports.createAppointment = [
       });
     } catch (err) {
       console.log(err);
-      const error = new Error("Address creation failed.");
+      const error = new Error("Appointment creation failed.");
       error.status = 500;
       return next(error);
     }
