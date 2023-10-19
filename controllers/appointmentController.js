@@ -2,6 +2,7 @@ const Appointment = require("../models/Appointment");
 
 const { body, validationResult } = require("express-validator");
 const moment = require("moment");
+const { sendMail } = require("../utils/sendEmail");
 
 exports.createAppointment = [
   body("date").notEmpty().withMessage("Please enter a valid date."),
@@ -31,6 +32,13 @@ exports.createAppointment = [
         user: userId,
       });
       await newAppointment.save();
+      const body = `Your appointment has been created for ${date} at ${time}.`;
+      const result = await sendMail(
+        req.user?.email,
+        "Appointment Scheduled",
+        body
+      );
+      console.log(result);
       res.status(201).json({
         message: "Appointment created.",
         appointment: newAppointment,
