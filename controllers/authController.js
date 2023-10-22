@@ -12,7 +12,6 @@ exports.login = [
     .withMessage("Password must be at least 6 characters long."),
 
   async (req, res, next) => {
-    console.log(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const error = new Error("Invalid value(s).");
@@ -37,6 +36,7 @@ exports.login = [
       error.status = 401;
       return next(error);
     }
+    console.log(existingUser.password);
     const isMathched = await argon2.verify(existingUser.password, password);
 
     if (!isMathched) {

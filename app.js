@@ -12,11 +12,13 @@ app.use(bodyParser.json());
 const authRoute = require("./routes/authRoute");
 const appointmentRoute = require("./routes/appointmentRoute");
 const blogRoute = require("./routes/blogRoute");
+const doctorRoute = require("./routes/doctorRoute");
 
 // Use Routes
 app.use("/api/auth", authRoute);
 app.use("/api/appointment", appointmentRoute);
 app.use("/api/blog", blogRoute);
+app.use("/api/doctor", doctorRoute);
 
 app.use("*", (req, res, next) => {
   const error = {

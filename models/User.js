@@ -35,6 +35,7 @@ const userSchema = new mongoose.Schema(
     },
     gender: {
       type: String,
+      enum:["Male","Female","Other"]
     },
     dob: {
       type: Date,
